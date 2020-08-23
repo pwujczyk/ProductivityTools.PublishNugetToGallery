@@ -10,7 +10,7 @@ function Publish-NugetToGallery {
 
 	dotnet pack
 	
-	$nugetApiKey=Get-MasterConfiguration "nugetApiKey"
+	$nugetApiKey=Get-MasterConfiguration "nugetApiKey" -Verbose
 	$nugets=Get-ChildItem *.nuget -Recurse
 	foreach($nuget in $nugets)
 	{
