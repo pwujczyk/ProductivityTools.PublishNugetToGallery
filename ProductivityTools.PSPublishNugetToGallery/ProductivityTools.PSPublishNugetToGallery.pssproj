@@ -29,7 +29,7 @@
   <ItemGroup>
     <Compile Include="ProductivityTools.PSPublishNugetToGallery.psd1" />
     <Compile Include="ProductivityTools.PSPublishNugetToGallery.psm1" />
-    <Compile Include="ProductivityTools.PSPublishNugetToGallery.tests.ps1" />
+    <Compile Include="Runner.ps1" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Target Name="Build" />
