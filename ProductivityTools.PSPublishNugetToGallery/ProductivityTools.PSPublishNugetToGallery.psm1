@@ -68,7 +68,10 @@ function CreateNugets{
 }
 
 function PushNugets{
-	$nugetApiKey=Get-MasterConfiguration "NugetApiKey" -Verbose
+	[Cmdletbinding()]
+	param()
+	
+	$nugetApiKey=Get-MasterConfiguration "NugetApiKey" -Verbose:$VerbosePreference
 	$nugets=Get-ChildItem *.nupkg -Recurse
 	foreach($nuget in $nugets)
 	{
@@ -93,9 +96,12 @@ function Publish-NugetToGallery {
 	Write-Verbose "Hello from Publish-NugetToGallery"
 	Write-Verbose "Performing operation in directory $Path"
 	cd $Path
-	IncreaseVersionPatch -IncreaseVersionPatch:$IncreaseVersionPatch
+	if ($IncreaseVersionPatch)
+	{
+		IncreaseVersionPatch 
+	}
 	CreateNugets
-	PushNugets
+	PushNugets -Verbose:$VerbosePreference
 }
 
 Export-ModuleMember Publish-NugetToGallery
