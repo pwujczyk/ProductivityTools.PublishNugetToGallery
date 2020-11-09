@@ -17,7 +17,7 @@ function IncreaseVersionPatch{
 		[xml]$proj=Get-Content $csproj
 		$sVersion=$proj.Project.PropertyGroup.Version
 		Write-Verbose "Current version for project $csProj is $sVersion"
-		if ($sVersion -ne "")
+		if ($sVersion -ne $nuget -and $sVersion -ne "")
 		{
 			$sValue=$sVersion.Substring($sVersion.LastIndexOf('.')+1)
 			$iValue=$sValue -as [int]
