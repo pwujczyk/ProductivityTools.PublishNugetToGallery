@@ -6,7 +6,8 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>MyApplication</RootNamespace>
     <AssemblyName>MyApplication</AssemblyName>
-    <Name>ProductivityTools.PSPublishNugetToGallery</Name>
+    <Name>ProductivityTools.PublishNugetToGallery</Name>
+    <ProjectHome />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -27,8 +28,8 @@
   </PropertyGroup>
   <ItemGroup />
   <ItemGroup>
-    <Compile Include="ProductivityTools.PSPublishNugetToGallery.psd1" />
-    <Compile Include="ProductivityTools.PSPublishNugetToGallery.psm1" />
+    <Compile Include="ProductivityTools.PublishNugetToGallery.psd1" />
+    <Compile Include="ProductivityTools.PublishNugetToGallery.psm1" />
     <Compile Include="Runner.ps1" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
