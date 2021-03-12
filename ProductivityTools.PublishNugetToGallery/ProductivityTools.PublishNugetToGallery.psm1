@@ -10,22 +10,38 @@ function IncreaseVersionPatch{
 	}
 }
 
+
+function GetPropertyGroup()
+{
+	[Cmdletbinding()]
+	param(
+		[string]$csproj
+	)
+	
+	[xml]$proj=Get-Content $csproj
+	
+	$array=$proj.Project.PropertyGroup -is [array]
+	if($array)
+	{
+		Write-Verbose "In csproj we have couple of the property group nodes. Taking the first one!"
+		$propertyGroup=$proj.Project.PropertyGroup[0]
+	}
+	else
+	{
+		$propertyGroup=$proj.Project.PropertyGroup
+	}
+	return $propertyGroup;
+	
+}
+
 function IncreaseVersionPatch{
 	$csprojs=Get-ChildItem *.csproj -Recurse
 	foreach($csproj in $csprojs)
 	{
 		[xml]$proj=Get-Content $csproj
-	
-		$array=$proj.Project.PropertyGroup -is [array]
-		if($array)
-		{
-			Write-Verbose "In csproj we have couple of the property group nodes. Taking the first one!"
-			$propertyGroup=$proj.Project.PropertyGroup[0]
-		}
-		else
-		{
-			$propertyGroup=$proj.Project.PropertyGroup
-		}
+
+		$propertyGroup=GetPropertyGroup $csproj
+		
 		$sVersion=$propertyGroup.Version
 		Write-Verbose "Current version for project $csProj is $sVersion"
 		if ($sVersion -ne $nuget -and $sVersion -ne "")
@@ -43,6 +59,7 @@ function IncreaseVersionPatch{
 }
 
 
+
 function NugetVersionAlignedWithCsProj()
 {
 	[Cmdletbinding()]
@@ -56,7 +73,8 @@ function NugetVersionAlignedWithCsProj()
 		$csProjBaseName=$csproj.BaseName
 		
 		[xml]$proj=Get-Content $csproj
-		$sVersion=$proj.Project.PropertyGroup.Version
+		$propertyGroup=GetPropertyGroup $csproj
+		$sVersion=$propertyGroup.Version
 		Write-Verbose "Current version for project $($csProj.BaseName) is $sVersion"
 		if ($sVersion -ne "")
 		{
