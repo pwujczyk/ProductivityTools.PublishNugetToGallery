@@ -15,10 +15,9 @@ function GetPropertyGroup()
 {
 	[Cmdletbinding()]
 	param(
-		[string]$csproj
+		[xml]$proj
 	)
 	
-	[xml]$proj=Get-Content $csproj
 	
 	$array=$proj.Project.PropertyGroup -is [array]
 	if($array)
@@ -40,7 +39,7 @@ function IncreaseVersionPatch{
 	{
 		[xml]$proj=Get-Content $csproj
 
-		$propertyGroup=GetPropertyGroup $csproj
+		$propertyGroup=GetPropertyGroup $proj
 		
 		$sVersion=$propertyGroup.Version
 		Write-Verbose "Current version for project $csProj is $sVersion"
@@ -73,7 +72,7 @@ function NugetVersionAlignedWithCsProj()
 		$csProjBaseName=$csproj.BaseName
 		
 		[xml]$proj=Get-Content $csproj
-		$propertyGroup=GetPropertyGroup $csproj
+		$propertyGroup=GetPropertyGroup $proj
 		$sVersion=$propertyGroup.Version
 		Write-Verbose "Current version for project $($csProj.BaseName) is $sVersion"
 		if ($sVersion -ne "")
