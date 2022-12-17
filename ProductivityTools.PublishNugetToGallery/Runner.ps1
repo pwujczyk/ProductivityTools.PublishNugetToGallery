@@ -3,6 +3,6 @@ cd $PSScriptRoot
 Import-Module .\ProductivityTools.PublishNugetToGallery.psm1 -Force 
 Get-ChildItem
 cd d:\GitHub\ProductivityTools.BankAccounts.Contract\
-cd  D:\gitHub-3.PublishedToLinkedIn\ProductivityTools.SportsTracker.SDK
+cd d:\GitHub\ProductivityTools.SendEmailGmail\
 
 Publish-NugetToGallery  -Verbose -IncreaseVersionPatch
